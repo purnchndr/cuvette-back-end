@@ -1,18 +1,23 @@
 const express = require('express');
+
+//* Util imports
 const { serverLog } = require('./logs/logs');
 const { errorHandeler } = require('./error/error');
-const authRouther = require('./routes/auth');
-const { authUser } = require('./controllers/auth');
+const { authUser } = require('./controllers/user');
+
+//* Routers import
+const authRouther = require('./routes/user');
+const jobRouter = require('./routes/job');
 
 const app = express();
 
-app.use(serverLog);
 app.use(express.json());
+app.use(serverLog);
 app.use(authUser);
+app.use('/user', authRouther);
+app.use('/job', jobRouter);
 
-app.use('/auth', authRouther);
-
-app.get('/', (req, res, next) => {
+app.get('*', (req, res, next) => {
   res.status(200).json({ message: 'Hi there!' });
 });
 

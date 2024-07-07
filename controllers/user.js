@@ -14,7 +14,7 @@ const authUser = async (req, res, next) => {
   }
 };
 
-const register = async (req, res, next) => {
+const registerUser = async (req, res, next) => {
   try {
     const { name, email, password, mobile } = req.body;
     let user = await User.findOne({ email });
@@ -35,7 +35,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -60,4 +60,4 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { authUser, register, login };
+module.exports = { authUser, registerUser, loginUser };
