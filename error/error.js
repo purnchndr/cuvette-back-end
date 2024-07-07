@@ -1,7 +1,7 @@
 const { serverLog, errorLog } = require('../logs/logs');
 
 function errorHandeler(err, req, res, next) {
-  const error = `[${new Date().toTimeString()}] || ${req.method} || ${
+  let error = `[${new Date().toTimeString()}] || ${req.method} || ${
     req.ip
   } \n \t ${err}`;
   errorLog(error);
