@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authUser } = require('../auth/auth');
 
 const {
   createJob,
@@ -12,8 +13,8 @@ const {
 router
   .get('/', getJobs)
   .get('/:id', getJob)
-  .post('/', createJob)
-  .delete('/:id', deleteJob)
-  .patch('/:id', updateJob);
+  .post('/', authUser, createJob)
+  .delete('/:id', authUser, deleteJob)
+  .patch('/:id', authUser, updateJob);
 
 module.exports = router;

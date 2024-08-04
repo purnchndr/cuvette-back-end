@@ -18,14 +18,12 @@ const createJob = async (req, res, next) => {
 
 const getJobs = async (req, res, next) => {
   try {
-    const jobs = await Job.find();
-    res
-      .status(200)
-      .json({
-        data: jobs,
-        message: 'all jobs fetched succesfully',
-        result: jobs?.length || 0,
-      });
+    const jobs = await Job.find().select('-__v');
+    res.status(200).json({
+      data: jobs,
+      message: 'all jobs fetched succesfully',
+      result: jobs?.length || 0,
+    });
   } catch (err) {
     next(err);
   }
@@ -34,7 +32,7 @@ const getJobs = async (req, res, next) => {
 const getJob = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const job = await Job.findById(id);
+    const job = await Job.findById(id).select('-__v');
     res.status(200).json({ data: job, message: 'job fetched succesfully' });
   } catch (err) {
     next(err);
